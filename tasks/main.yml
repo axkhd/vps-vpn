@@ -8,15 +8,6 @@
   when: ansible_facts.services['docker'] is undefined
 - name: Install/update yq
   include_tasks: install_yq.yml
-- name: Security block
-  block:
-    - name: Edit SSHD config
-      include_tasks: ssh.yml
-    - name: Edit iptables
-      include_tasks: iptables.yml
-    - name: Add user
-      include_tasks: user.yml
-  when: configure_security|default(false)|bool == true
 - name: Generate values
   block:
     - name: Generate x25519 PIK 
@@ -52,3 +43,12 @@
 - name: End xray
   include_tasks: end_xray.yml
   when: setup_variant == "xray"
+- name: Security block
+  block:
+    - name: Edit SSHD config
+      include_tasks: ssh.yml
+    - name: Edit iptables
+      include_tasks: iptables.yml
+    - name: Add user
+      include_tasks: user.yml
+  when: configure_security|default(false)|bool == true
