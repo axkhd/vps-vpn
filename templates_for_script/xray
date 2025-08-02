@@ -1,6 +1,9 @@
 {
   "log": {
-    "loglevel": "none"
+    "access": "/var/log/Xray/access.log",
+    "error": "/var/log/Xray/error.log",
+    "loglevel": "debug",
+    "dnsLog": true
   },
   "inbounds": [
     {
@@ -10,12 +13,11 @@
       "protocol": "vless",
       "settings": {
         "clients": [
-          {
-            "id": "$XRAY_UUID",
-            "email": "default",
-            "flow": "xtls-rprx-vision"
-          }
-        ],
+        {
+          "id": "{{ xray_uuid.stdout}}",
+          "email": "default",
+          "flow": "xtls-rprx-vision"
+        }],
         "decryption": "none"
       },
       "streamSettings": {
@@ -25,32 +27,37 @@
           "xver": 1,
           "dest": "127.0.0.1:4123",
           "serverNames": [
-            "$VLESS_DOMAIN"
+            "{{ domain }}"
           ],
-          "privateKey": "$XRAY_PIK",
+          "privateKey": "{{ x25519_pik.stdout }}",
           "shortIds": [
-            "$XRAY_SID"
+            "{{ short_id.stdout }}"
           ]
         }
       },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ],
-        "routeOnly": true
-      }
+            "sniffing": {
+"routeOnly": true,
+"enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic",
+"fakedns"
+                ]
+            }
     }
   ],
   "outbounds": [
-    {
-      "protocol": "freedom",
-      "tag": "direct",
-      "settings": {
-        "domainStrategy": "UseIPv4"
-      }
-    },
+        {
+            "protocol": "freedom",
+            "tag": "direct",
+                        "sockopt": {
+    "tcpFastOpen": true,
+    "tcpCongestion": "bbr",
+"tcpMptcp": true,
+"tcpNoDelay": true
+  }
+        },
     {
       "protocol": "blackhole",
       "tag": "block"
@@ -70,8 +77,22 @@
       "1.1.1.1",
       "8.8.8.8"
     ],
-    "queryStrategy": "UseIPv4",
+    "queryStrategy": "UseIP",
     "disableFallback": false,
     "tag": "dns-aux"
-  }
+  },
+    "policy": {
+    "levels": {
+      "0": {
+        "handshake": 5,
+        "connIdle": 30,
+        "uplinkOnly": 0,
+        "downlinkOnly": 0,
+        "statsUserUplink": false,
+        "statsUserDownlink": false,
+        "statsUserOnline": false,
+        "bufferSize": 16384
+      }
+    }
+        }
 }
