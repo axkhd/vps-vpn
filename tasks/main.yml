@@ -1,8 +1,8 @@
 ---
 - name: Populate service facts
   ansible.builtin.service_facts:
-- name: Enable BBR
-  include_tasks: bbr.yml
+- name: Enable sysctltuning
+  include_tasks: sysctl.yml
 - name: Install docker
   include_tasks: install_docker.yml
   when: ansible_facts.services['docker'] is undefined
