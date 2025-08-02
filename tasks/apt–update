@@ -1,0 +1,3 @@
+- name: Apt Update task
+  ansible.builtin.apt:
+    update_cache: yes
