@@ -1,4 +1,6 @@
 galaxy_info:
+  namespace: axkhd
+  name: vps–vpn
   author: Akiyamov with some changes
   description: Setup VPS for XRay
   company: your company (optional)
