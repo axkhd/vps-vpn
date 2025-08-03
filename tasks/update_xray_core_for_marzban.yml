@@ -1,0 +1,23 @@
+- name: Install the packages to unpack xray core
+  ansible.builtin.apt:
+    state: latest
+  loop:
+    – wget
+    – unzip
+  become: yes
+- name: Create dir
+  file:
+    path: /var/lib/marzban/xray-core
+    state: directory
+- name: Download xray core
+  ansible.builtin.get_url:
+    url: "https://github.com/XTLS/Xray-core/releases/download/v25.7.26/Xray-linux-64.zip"
+    dest: /var/lib/marzban/xray-core
+- name: Extract Xray-linux-64.zip
+  ansible.builtin.unarchive:
+    src: /var/lib/marzban/xray-core/Xray-linux-64.zip
+    dest: /var/lib/marzban/xray-core
+- name: Remove a Xray-linux-64.zip
+  ansible.builtin.file:
+    path: /var/lib/marzban/xray-core/Xray-linux-64.zip
+    state: absent
