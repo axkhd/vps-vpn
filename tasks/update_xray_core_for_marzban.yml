@@ -1,9 +1,8 @@
 - name: Install the packages to unpack xray core
   ansible.builtin.apt:
-    state: latest
-  loop:
-    – wget
-    – unzip
+    pkg:
+    - wget
+    - unzip
   become: yes
 - name: Create dir
   file:
