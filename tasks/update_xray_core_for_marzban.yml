@@ -15,7 +15,7 @@
 - name: Extract Xray-linux-64.zip
   ansible.builtin.unarchive:
     src: /var/lib/marzban/xray-core/Xray-linux-64.zip
-    dest: /var/lib/marzban/xray-core
+    dest: /var/lib/marzban/xray-core/
 - name: Remove a Xray-linux-64.zip
   ansible.builtin.file:
     path: /var/lib/marzban/xray-core/Xray-linux-64.zip
