@@ -1,9 +1,6 @@
 {
   "log": {
-    "access": "/var/log/Xray/access.log",
-    "error": "/var/log/Xray/error.log",
-    "loglevel": "debug",
-    "dnsLog": true
+    "loglevel": "info"
   },
   "inbounds": [
     {
@@ -35,29 +32,24 @@
           ]
         }
       },
-            "sniffing": {
-"routeOnly": true,
-"enabled": true,
-                "destOverride": [
-                    "http",
-                    "tls",
-                    "quic",
-"fakedns"
-                ]
-            }
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "routeOnly": true
+      }
     }
   ],
   "outbounds": [
-        {
-            "protocol": "freedom",
-            "tag": "direct",
-                        "sockopt": {
-    "tcpFastOpen": true,
-    "tcpCongestion": "bbr",
-"tcpMptcp": true,
-"tcpNoDelay": true
-  }
-        },
+    {
+      "protocol": "freedom",
+      "tag": "direct",
+      "settings": {
+        "domainStrategy": "UseIPv4"
+      }
+    },
     {
       "protocol": "blackhole",
       "tag": "block"
@@ -77,22 +69,8 @@
       "1.1.1.1",
       "8.8.8.8"
     ],
-    "queryStrategy": "UseIP",
+    "queryStrategy": "UseIPv4",
     "disableFallback": false,
     "tag": "dns-aux"
-  },
-    "policy": {
-    "levels": {
-      "0": {
-        "handshake": 5,
-        "connIdle": 30,
-        "uplinkOnly": 0,
-        "downlinkOnly": 0,
-        "statsUserUplink": false,
-        "statsUserDownlink": false,
-        "statsUserOnline": false,
-        "bufferSize": 16384
-      }
-    }
-        }
+  }
 }
