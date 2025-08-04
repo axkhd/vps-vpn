@@ -4,9 +4,6 @@
 - name: Disable password login
   shell:
     cmd: grep -r PasswordAuthentication /etc/ssh -l | xargs -n 1 sed -i -e "/PasswordAuthentication /c\PasswordAuthentication no"
-- name: Disable root login
-  shell:
-    cmd: grep -r PermitRootLogin /etc/ssh -l | xargs -n 1 sed -i -e "/PermitRootLogin /c\PermitRootLogin no"
 - name: Restart ssh
   service:
     name: ssh
