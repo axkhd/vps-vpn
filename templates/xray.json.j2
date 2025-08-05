@@ -1,6 +1,9 @@
 {
   "log": {
-    "loglevel": "info"
+    "access": "/var/log/Xray/access.log",
+    "error": "/var/log/Xray/error.log",
+    "loglevel": "debug",
+    "dnsLog": true
   },
   "inbounds": [
     {
@@ -46,6 +49,12 @@
     {
       "protocol": "freedom",
       "tag": "direct",
+	                          "sockopt": {
+    "tcpFastOpen": true,
+    "tcpCongestion": "bbr",
+"tcpMptcp": true,
+"tcpNoDelay": true
+  },
       "settings": {
         "domainStrategy": "UseIPv4"
       }
@@ -72,5 +81,19 @@
     "queryStrategy": "UseIPv4",
     "disableFallback": false,
     "tag": "dns-aux"
-  }
+  },
+    "policy": {
+    "levels": {
+      "0": {
+        "handshake": 5,
+        "connIdle": 30,
+        "uplinkOnly": 0,
+        "downlinkOnly": 0,
+        "statsUserUplink": false,
+        "statsUserDownlink": false,
+        "statsUserOnline": false,
+        "bufferSize": 16384
+      }
+    }
+        }
 }
