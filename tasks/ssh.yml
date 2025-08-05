@@ -1,6 +1,3 @@
-- name: Change SSH port
-  shell:
-    cmd: grep -r Port /etc/ssh -l | xargs -n 1 sed -i -e "/Port /c\Port {{ SSH_PORT }}"
 - name: Disable password login
   shell:
     cmd: grep -r PasswordAuthentication /etc/ssh -l | xargs -n 1 sed -i -e "/PasswordAuthentication /c\PasswordAuthentication no"
