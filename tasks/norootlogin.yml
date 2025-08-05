@@ -1,3 +1,0 @@
-- name: Disable root login
-  shell:
-    cmd: grep -r PermitRootLogin /etc/ssh -l | xargs -n 1 sed -i -e "/PermitRootLogin /c\PermitRootLogin no"
