@@ -58,4 +58,6 @@
       include_tasks: iptables.yml
     - name: Add user
       include_tasks: user.yml
+   - name: No root and passwd login
+      include_tasks: norootpasswdlogin.yml
   when: configure_security|default(false)|bool == true
