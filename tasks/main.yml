@@ -61,3 +61,9 @@
     - name: No root and passwd login
       include_tasks: norootpasswdlogin.yml
   when: configure_security|default(false)|bool == true
+- name: Populate service facts
+  ansible.builtin.service_facts:
+- name: Upgrading apt
+  include_tasks: apt–upgrade.yml
+- name: Upgrade to last normal Ubuntu release
+  include_tasks: do–release–upgrade.yml
