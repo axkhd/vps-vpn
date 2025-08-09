@@ -2,3 +2,6 @@
   ansible.builtin.apt:
     name: "*"
     state: latest
+- name: Reboot the server.
+  ansible.builtin.reboot:
+    reboot_timeout: 120
