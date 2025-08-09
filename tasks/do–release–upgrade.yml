@@ -1,4 +1,3 @@
-  tasks:
       - name: Set prompt for LTS upgrades
         ansible.builtin.lineinfile:
           path: /etc/update-manager/release-upgrades
