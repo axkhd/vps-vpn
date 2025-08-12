@@ -50,6 +50,10 @@
 - name: End xray
   include_tasks: end_xray.yml
   when: setup_variant == "xray"
+- name: Upgrading apt
+  include_tasks: apt–upgrade.yml
+- name: Upgrade to last normal Ubuntu release
+  include_tasks: do–release–upgrade.yml
 - name: Security block
   block:
     - name: Edit SSHD config
@@ -61,7 +65,3 @@
     - name: No root and passwd login
       include_tasks: norootpasswdlogin.yml
   when: configure_security|default(false)|bool == true
-- name: Upgrading apt
-  include_tasks: apt–upgrade.yml
-- name: Upgrade to last normal Ubuntu release
-  include_tasks: do–release–upgrade.yml
