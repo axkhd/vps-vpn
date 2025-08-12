@@ -54,7 +54,7 @@
 "tcpNoDelay": true
   },
       "settings": {
-        "domainStrategy": "AsIs"
+        "domainStrategy": "IPIfNonMatch"
       }
     },
     {
@@ -76,7 +76,7 @@
       "1.1.1.1",
       "8.8.8.8"
     ],
-    "queryStrategy": "UseSystem",
+    "queryStrategy": "UseIPv4",
     "disableFallback": false,
     "tag": "dns-aux"
   },
