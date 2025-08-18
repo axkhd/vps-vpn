@@ -16,48 +16,6 @@
     value: "3"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_orphan_retries
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_orphan_retries
-    value: "7"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_syn_retries
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_syn_retries
-    value: "1"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_synack_retries
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_synack_retries
-    value: "1"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_fin_timeout
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_fin_timeout
-    value: "30"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_keepalive_time
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_keepalive_time
-    value: "1800"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_keepalive_intvl
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_keepalive_intvl
-    value: "15"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_keepalive_probes
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_keepalive_probes
-    value: "1"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
 - name: Set tcp_tw_reuse
   ansible.posix.sysctl:
     name: net.ipv4.tcp_tw_reuse
@@ -124,24 +82,6 @@
     value: "1"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_sack
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_sack
-    value: "0"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_dsack
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_dsack
-    value: "0"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_fack
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_fack
-    value: "0"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
 - name: Set tcp_slow_start_after_idle
   ansible.posix.sysctl:
     name: net.ipv4.tcp_slow_start_after_idle
@@ -164,30 +104,6 @@
   ansible.posix.sysctl:
     name: net.ipv4.tcp_notsent_lowat
     value: "16384"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set somaxconn
-  ansible.posix.sysctl:
-    name: net.core.somaxconn
-    value: "15000"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_syncookies
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_syncookies
-    value: "0"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_rfc1337
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_rfc1337
-    value: "1"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_no_metrics_save
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_no_metrics_save
-    value: "1"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set tcp_timestamps
