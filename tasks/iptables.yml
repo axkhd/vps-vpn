@@ -31,6 +31,13 @@
           - "80"
           - "443"
         jump: ACCEPT
+    - name: Allow udp 443 connections
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: udp
+        destination_ports:
+          - "443"
+        jump: ACCEPT
     - name: Allow loopback in
       shell:
         cmd: iptables -A INPUT -i lo -j ACCEPT
