@@ -39,6 +39,8 @@
 - name: Install xray
   include_tasks: install_xray.yml
   when: setup_variant == "xray"
+- name: Adding a subscription file
+  include_tasks: upd_subscription.yml
 - name: Install warp
   include_tasks: setup_warp.yml
   when: setup_warp|default(false)|bool == true
