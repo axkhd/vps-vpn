@@ -1,0 +1,5 @@
+- name: Create a subsciption file
+  ansible.builtin.copy:
+    dest: /opt/xray-vps-setup/caddy/templates/rentgen.html
+    content: |
+      {{ suburl }}
