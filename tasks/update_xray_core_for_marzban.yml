@@ -21,3 +21,7 @@
   ansible.builtin.file:
     path: /var/lib/marzban/xray-core/Xray-linux-64.zip
     state: absent
+- name: Docker forced compose up again to mount volumes with new core
+  community.docker.docker_compose_v2:
+    project_src: /opt/xray-vps-setup/
+    recreate: always
