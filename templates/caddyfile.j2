@@ -20,7 +20,8 @@ https://{{ domain }} {
 {% endif %}
 }
 https://{{ domain }}/rentgen {
-        redir https://{{ suburl }} permanent
+  root * /srv/rentgen.html
+  file_server
 }
 http://{{ domain }} {
   bind 0.0.0.0
