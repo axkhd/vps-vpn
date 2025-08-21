@@ -44,6 +44,8 @@
 - name: Install warp
   include_tasks: setup_warp.yml
   when: setup_warp|default(false)|bool == true
+- name: Install docker compose cli
+  include_tasks: docker_compose_cli_install.yml
 - name: Start proxy
   community.docker.docker_compose_v2:
     project_src: /opt/xray-vps-setup
