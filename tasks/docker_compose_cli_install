@@ -1,0 +1,3 @@
+- name: Install the package "docker-compose-plugin"
+  ansible.builtin.apt:
+    name: docker-compose-plugin
