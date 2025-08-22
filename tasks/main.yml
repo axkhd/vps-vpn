@@ -5,9 +5,6 @@
   include_tasks: apt–update.yml
 - name: Enable sysctltuning
   include_tasks: sysctl.yml
-- name: Preparing the latest xray core for marzban
-  include_tasks: update_xray_core_for_marzban.yml
-  when: setup_variant == "marzban"
 - name: Passlib install for noble 24.04
   include_tasks: passlib.yml
 - name: Install docker
@@ -44,6 +41,9 @@
 - name: Install warp
   include_tasks: setup_warp.yml
   when: setup_warp|default(false)|bool == true
+- name: Preparing the latest xray core for marzban
+  include_tasks: update_xray_core_for_marzban.yml
+  when: setup_variant == "marzban"
 - name: Start proxy
   community.docker.docker_compose_v2:
     project_src: /opt/xray-vps-setup
