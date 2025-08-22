@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+[Resolve]
+DNS={{ preferred_dns }}
+FallbackDNS={{ fallback_dns }}
+{% for domain in search_domains %}
+Domains={{ domain }}
+{% endfor %}
+DNSSEC=no
+LLMNR=no
+MulticastDNS=no
