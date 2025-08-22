@@ -1,8 +1,8 @@
 galaxy_info:
   namespace: axkhd
   name: vps–vpn
-  author: Akiyamov with some changes
-  description: Setup VPS for XRay
+  author: Akiyamov with changes from axkhd
+  description: Setup rentgen IYWIM
   company: your company (optional)
   license: BSD-3-Clause
   min_ansible_version: 2.1
@@ -14,6 +14,7 @@ galaxy_info:
     - 20
     - 22
     - 24
+    - 25
   galaxy_tags: 
     - xray
     - vps
