@@ -15,6 +15,7 @@
     state: directory
   loop:
     - /opt/xray-vps-setup/caddy
+    - /opt/xray-vps-setup/caddy/templates/
     - /opt/xray-vps-setup/marzban
     - /opt/xray-vps-setup/marzban/templates/home
 - name: Copy config files
