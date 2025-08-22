@@ -1,2 +1,5 @@
 ---
+preferred_dns: 1.1.1.1
+fallback_dns: 1.0.0.1
+search_domains: []
 # defaults file for vps-setup
