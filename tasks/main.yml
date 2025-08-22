@@ -36,14 +36,14 @@
 - name: Install xray
   include_tasks: install_xray.yml
   when: setup_variant == "xray"
-- name: Adding a subscription file
-  include_tasks: upd_subscription.yml
 - name: Install warp
   include_tasks: setup_warp.yml
   when: setup_warp|default(false)|bool == true
 - name: Preparing the latest xray core for marzban
   include_tasks: update_xray_core_for_marzban.yml
   when: setup_variant == "marzban"
+- name: Adding a subscription file
+  include_tasks: upd_subscription.yml
 - name: Start proxy
   community.docker.docker_compose_v2:
     project_src: /opt/xray-vps-setup
