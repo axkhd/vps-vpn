@@ -1,7 +1,7 @@
-- name: Set FQ
+- name: Set FQ_codel
   ansible.posix.sysctl:
     name: net.core.default_qdisc
-    value: "fq"
+    value: "fq_codel"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set BBR
@@ -25,37 +25,37 @@
 - name: Set tcp_rmem
   ansible.posix.sysctl:
     name: net.ipv4.tcp_rmem
-    value: "8192 262144 536870912"
+    value: "8192 262144 16777216"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set tcp_wmem
   ansible.posix.sysctl:
     name: net.ipv4.tcp_wmem
-    value: "4096 16384 536870912"
+    value: "4096 16384 16777216"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set rmem_default
   ansible.posix.sysctl:
     name: net.core.rmem_default
-    value: "26214400"
+    value: "16777216"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set wmem_default
   ansible.posix.sysctl:
     name: net.core.wmem_default
-    value: "26214400"
+    value: "16777216"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set rmem_max
   ansible.posix.sysctl:
     name: net.core.rmem_max
-    value: "26214400"
+    value: "16777216"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set wmem_max
   ansible.posix.sysctl:
     name: net.core.wmem_max
-    value: "26214400"
+    value: "16777216"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set udp_rmem_min
@@ -113,6 +113,30 @@
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set ip_forward
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+- name: Set tcp_mtu_probing
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+- name: Set tcp_base_mss
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+- name: Set vm.swappiness
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+- name: Set file-max
   ansible.posix.sysctl:
     name: net.ipv4.ip_forward
     value: "1"
