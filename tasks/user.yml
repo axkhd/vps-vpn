@@ -23,7 +23,7 @@
     name: "{{ ansible_user }}"
     shell: /bin/bash
     groups: sudo,docker
-    password: "{{ user_password | password_hash('sha512') }}"
+    password: "{{ ansible_user_pass }}"
     append: yes
     update_password: on_create
 - name: Add ssh_pbk to ansible user
