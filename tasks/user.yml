@@ -18,3 +18,16 @@
     user: "{{ user_to_create }}"
     state: "present"
     key: "{{ ssh_public_key }}"
+- name: Add user
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    shell: /bin/bash
+    groups: sudo,docker
+    password: "{{ user_password | password_hash('sha512') }}"
+    append: yes
+    update_password: on_create
+- name: Add ssh_pbk to ansible user
+  ansible.posix.authorized_key:
+    user: "{{ ansible_user }}"
+    state: "present"
+    key: "{{ ansible_user_public_key }}"
