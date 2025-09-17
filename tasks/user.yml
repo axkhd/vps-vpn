@@ -18,7 +18,7 @@
     user: "{{ user_to_create }}"
     state: "present"
     key: "{{ ssh_public_key }}"
-- name: Add user
+- name: Add ansible user
   ansible.builtin.user:
     name: "{{ ansible_user }}"
     shell: /bin/bash
