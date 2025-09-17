@@ -2,4 +2,4 @@
   ansible.builtin.copy:
     dest: /opt/xray-vps-setup/caddy/templates/rentgen.html
     content: |
-      vless://{{ xray_uuid.stdout }}@{{ domain }}:443?type=tcp&security=reality&pbk={{ x25519_pbk.stdout }}&fp=chrome&sni={{ domain }}&sid={{ short_id.stdout }}&spx=%2F&flow=xtls-rprx-vision
+      vless://{{ xray_uuid.stdout }}@{{ xray_domain }}:443?type=tcp&security=reality&pbk={{ x25519_pbk.stdout }}&fp=chrome&sni={{ xray_domain }}&sid={{ short_id.stdout }}&spx=%2F&flow=xtls-rprx-vision
