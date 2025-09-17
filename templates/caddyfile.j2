@@ -11,7 +11,7 @@
   }
   auto_https disable_redirects
 }
-https://{{ domain }} {
+https://{{ xray_domain }} {
 {% if setup_variant == "marzban" %}
   reverse_proxy * unix//run/marzban/marzban.socket
 {% else %}
@@ -19,11 +19,11 @@ https://{{ domain }} {
   file_server
 {% endif %}
 }
-https://{{ domain }}/rentgen {
+https://{{ xray_domain }}/rentgen {
   root * /srv/rentgen.html
   file_server
 }
-http://{{ domain }} {
+http://{{ xray_domain }} {
   bind 0.0.0.0
   redir https://{host}{uri} permanent
 }
