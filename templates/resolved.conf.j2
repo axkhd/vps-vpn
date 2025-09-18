@@ -3,7 +3,7 @@
 DNS={{ preferred_dns }}
 FallbackDNS={{ fallback_dns }}
 {% for domain in search_domains %}
-Domains={{ domain }}
+Domains=~.
 {% endfor %}
 DNSSEC=no
 LLMNR=no
