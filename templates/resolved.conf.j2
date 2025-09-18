@@ -2,9 +2,7 @@
 [Resolve]
 DNS={{ preferred_dns }}
 FallbackDNS={{ fallback_dns }}
-{% for domain in search_domains %}
 Domains=~.
-{% endfor %}
 DNSSEC=no
 LLMNR=no
 MulticastDNS=no
