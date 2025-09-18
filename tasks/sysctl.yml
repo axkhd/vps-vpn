@@ -127,18 +127,18 @@
 - name: Set tcp_base_mss
   ansible.posix.sysctl:
     name: net.ipv4.ip_forward
-    value: "1"
+    value: "1024"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set vm.swappiness
   ansible.posix.sysctl:
     name: net.ipv4.ip_forward
-    value: "1"
+    value: "10"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set file-max
   ansible.posix.sysctl:
     name: net.ipv4.ip_forward
-    value: "1"
+    value: "100000"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
