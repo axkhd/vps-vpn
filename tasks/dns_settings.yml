@@ -4,7 +4,7 @@
     dest: /etc/systemd/resolved.conf
   notify: restart resolved
 
-- name: systemd-resolved | service
+- name: systemd-resolved | stop to use unbound
   systemd:
     name: systemd-resolved
     enabled: false
