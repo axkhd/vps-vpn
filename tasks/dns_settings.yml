@@ -7,14 +7,6 @@
 - name: systemd-resolved | service
   systemd:
     name: systemd-resolved
-    masked: no
-    enabled: yes
-    state: started
-  notify: use resolved
-
-- name: systemd-resolved | stub /etc/resolv.conf
-  file:
-    src: /run/systemd/resolve/stub-resolv.conf
-    dest: /etc/resolv.conf
-    state: link
-    force: true
+    enabled: false
+    state: stopped
+  notify: stop resolved
