@@ -17,3 +17,10 @@ services:
     network_mode: host
     volumes:
       - ./xray:/etc/xray
+  unbound:
+    container_name: unbound
+    image: "mvance/unbound:latest"
+    network_mode: host
+    volumes:
+      - ./unbound.conf:/opt/unbound/etc/unbound/unbound.conf
+    restart: always
