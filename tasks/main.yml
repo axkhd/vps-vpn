@@ -56,8 +56,6 @@
   include_tasks: apt–upgrade.yml
 - name: Upgrade to last normal Ubuntu release
   include_tasks: do–release–upgrade.yml
-- name: Change DNS settings
-  include_tasks: dns_settings.yml
 - name: Security block
   block:
     - name: Edit SSHD config
@@ -69,3 +67,5 @@
     - name: No root and passwd login
       include_tasks: norootpasswdlogin.yml
   when: configure_security|default(false)|bool == true
+- name: Change DNS settings
+  include_tasks: dns_settings.yml
