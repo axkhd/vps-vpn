@@ -16,11 +16,11 @@
   block:
     - name: Generate x25519 PIK 
       shell:
-        cmd: docker run --rm ghcr.io/xtls/xray-core x25519 | head -n1 | cut -d' ' -f 3
+        cmd: docker run --rm ghcr.io/xtls/xray-core x25519 | head -n1 | cut -d' ' -f 2
       register: x25519_pik
     - name: Generate x25519 PBK 
       shell:
-        cmd: docker run --rm ghcr.io/xtls/xray-core x25519 -i {{ x25519_pik.stdout }} | tail -1 | cut -d' ' -f 3
+        cmd: docker run --rm ghcr.io/xtls/xray-core x25519 -i {{ x25519_pik.stdout }} | tail -1 | cut -d' ' -f 2
       register: x25519_pbk
     - name: Generate SID
       shell:
