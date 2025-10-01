@@ -25,3 +25,7 @@
   service:
     name: systemd-resolved
     state: restarted
+- name: stop resolved
+  service:
+    name: systemd-resolved
+    state: stopped
