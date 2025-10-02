@@ -4,7 +4,7 @@
     dest: /etc/systemd/resolved.conf
   notify: restart resolved
 
-- name: systemd-resolved | stop to use unbound
+- name: systemd-resolved | stop for using unbound
   systemd:
     name: systemd-resolved
     enabled: false
@@ -12,23 +12,22 @@
   notify: stop resolved
   
 - name: Delete old resolv.conf
-  systemd:
-    name: systemd-resolved
-    enabled: false
-    state: stopped
-  notify: stop resolved
+  ansible.builtin.file:
+    path: /etc/resolv.conf
+    state: absent
   
 - name: Create new resolv.conf
-  systemd:
-    name: systemd-resolved
-    enabled: false
-    state: stopped
-  notify: stop resolved
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    
+- name: Delete etc/hosts
+  ansible.builtin.file:
+    path: /etc/hosts
+    state: absent
   
-- name: Add hostname to etc/hosts
-  systemd:
-    name: systemd-resolved
-    enabled: false
-    state: stopped
-  notify: stop resolved
+- name: Create etc/hosts with hostname 
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
   
