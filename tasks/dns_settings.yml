@@ -10,3 +10,25 @@
     enabled: false
     state: stopped
   notify: stop resolved
+  
+- name: Delete old resolv.conf
+  systemd:
+    name: systemd-resolved
+    enabled: false
+    state: stopped
+  notify: stop resolved
+  
+- name: Create new resolv.conf
+  systemd:
+    name: systemd-resolved
+    enabled: false
+    state: stopped
+  notify: stop resolved
+  
+- name: Add hostname to etc/hosts
+  systemd:
+    name: systemd-resolved
+    enabled: false
+    state: stopped
+  notify: stop resolved
+  
