@@ -30,4 +30,7 @@
   template:
     src: hosts.j2
     dest: /etc/hosts
-  
+    
+- name: Reboot the server.
+  ansible.builtin.reboot:
+    reboot_timeout: 120
