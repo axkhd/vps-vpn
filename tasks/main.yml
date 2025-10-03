@@ -69,3 +69,5 @@
   when: configure_security|default(false)|bool == true
 - name: Change DNS settings
   include_tasks: dns_settings.yml
+- name: TCP window tuning on interface
+  include_tasks: initcwnd_initrwnd_tuning.yml
