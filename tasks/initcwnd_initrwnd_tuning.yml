@@ -4,4 +4,4 @@
     dest: /etc/networkd-dispatcher/routable.d/initcwnd.sh
     mode: '0755'
     owner: root
-  notify: Restart networkd-dispatcher
+  notify: restart networkd-dispatcher
