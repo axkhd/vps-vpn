@@ -1,6 +1,6 @@
 - name: Add post-up command to ens1
   community.general.interfaces_file:
-    iface: {{ interface }}
+    iface: {{ ansible_default_ipv4.interface.alias }}
     state: present
     option: post-up
     value: ip route change default via {{ ansible_default_ipv4.interface.gateway }} dev {{ ansible_default_ipv4.interface.alias }} proto dhcp src {{ ansible_host }} metric 100 initcwnd 20 initrwnd 40
