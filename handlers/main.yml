@@ -29,3 +29,7 @@
   service:
     name: systemd-resolved
     state: stopped
+- name: restart networkd-dispatcher
+  service:
+    name: networkd-dispatcher
+    state: restarted
