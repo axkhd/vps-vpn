@@ -1,6 +1,6 @@
 - name: Deploy routable.d script
   ansible.builtin.copy:
-    src: initcwnd_script.j2
+    src: templates/initcwnd_script.j2
     dest: /etc/networkd-dispatcher/routable.d/initcwnd.sh
     mode: '0755'
   notify: Restart networkd-dispatcher
