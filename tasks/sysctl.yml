@@ -1,7 +1,7 @@
 - name: Set FQ_codel
   ansible.posix.sysctl:
     name: net.core.default_qdisc
-    value: "fq_codel"
+    value: "fq"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set BBR
