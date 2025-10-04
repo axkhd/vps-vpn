@@ -3,4 +3,4 @@
     iface: {{ interface }}
     state: present
     option: post-up
-    value: ip route change default via {{ default_gw }} dev {{ interface }} proto dhcp src {{ ansible_host }} metric 100 initcwnd 20 initrwnd 40
+    value: ip route change default via {{ ansible_default_ipv4.interface.gateway }} dev {{ ansible_default_ipv4.interface.alias }} proto dhcp src {{ ansible_host }} metric 100 initcwnd 20 initrwnd 40
