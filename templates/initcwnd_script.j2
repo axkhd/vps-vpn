@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DEFAULT_GATEWAY = {{ ansible_facts['default_ipv4']['gateway'] }}
-INTERFACE = {{ ansible_facts['default_ipv4']['alias'] }}
-IP = {{ ansible_facts['default_ipv4']['address']}}
+DEFAULT_GATEWAY={{ ansible_facts['default_ipv4']['gateway'] }}
+INTERFACE={{ ansible_facts['default_ipv4']['alias'] }}
+IP ={{ansible_facts['default_ipv4']['address']}}
 
-ip route change default via ${DEFAULT_GATEWAY} dev ${INTERFACE} proto dhcp src ${IP} metric 100 initcwnd 20 initrwnd 40
+ip route change default via $DEFAULT_GATEWAY dev $INTERFACE proto dhcp src $IP metric 100 initcwnd 20 initrwnd 40
