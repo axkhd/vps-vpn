@@ -1,3 +1,7 @@
+- name: Register facts as variables
+  debug:
+   var: ansible_facts['default_ipv4']['address']
+  register: ipaddress
 - name: Deploy routable.d script
   ansible.builtin.copy:
     src: templates/initcwnd_script.j2
