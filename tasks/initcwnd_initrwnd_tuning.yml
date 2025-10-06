@@ -3,7 +3,7 @@
    var: ansible_facts['default_ipv4']['address']
   register: ipaddress
 - name: Deploy routable.d script
-  ansible.builtin.copy:
+  template:
     src: templates/initcwnd_script.j2
     dest: /etc/networkd-dispatcher/routable.d/initcwnd.sh
     mode: '0755'
