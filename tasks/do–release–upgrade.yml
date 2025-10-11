@@ -11,7 +11,7 @@
         apt: name=update-manager-core state=present
 
       - name: Run do-release-upgrade non-interactively.
-        command: do-release-upgrade -f DistUpgradeViewNonInteractive
+        command: do-release-upgrade -f DistUpgradeViewNonInteractive -d
 
       - name: Reboot the server.
         ansible.builtin.reboot:
