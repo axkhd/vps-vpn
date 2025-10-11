@@ -60,3 +60,14 @@
   include_tasks: dns_settings.yml
 - name: TCP window tuning on interface
   include_tasks: initcwnd_initrwnd_tuning.yml
+- name: Security block
+  block:
+    - name: Edit SSHD config
+      include_tasks: ssh.yml
+    - name: Edit iptables
+      include_tasks: iptables.yml
+    - name: Add user
+      include_tasks: user.yml
+    - name: No root and passwd login
+      include_tasks: norootpasswdlogin.yml
+  when: configure_security|default(false)|bool == true
