@@ -133,7 +133,7 @@
 - name: Set vm.swappiness
   ansible.posix.sysctl:
     name: vm.swappiness
-    value: "10"
+    value: "0"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set file-max
