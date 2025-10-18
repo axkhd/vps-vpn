@@ -160,4 +160,3 @@
     value: "1"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-
