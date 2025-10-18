@@ -1,4 +1,4 @@
-- name: Set FQ_codel
+- name: Set FQ
   ansible.posix.sysctl:
     name: net.core.default_qdisc
     value: "fq"
@@ -121,13 +121,13 @@
 - name: Set tcp_mtu_probing
   ansible.posix.sysctl:
     name: net.ipv4.tcp_mtu_probing
-    value: "1"
+    value: "2"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set tcp_base_mss
   ansible.posix.sysctl:
     name: net.ipv4.tcp_base_mss
-    value: "1024"
+    value: "1380"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
 - name: Set vm.swappiness
@@ -142,3 +142,22 @@
     value: "100000"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
+- name:  Disable IPv6
+  ansible.posix.sysctl:
+    name: net.ipv6.conf.all.disable_ipv6
+    value: "1"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+- name: Disable default IPv6
+  ansible.posix.sysctl:
+    name: net.ipv6.conf.default.disable_ipv6
+    value: "1"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+- name: Disable loopback IPv6
+  ansible.posix.sysctl:
+    name: net.ipv6.conf.lo.disable_ipv6
+    value: "1"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
