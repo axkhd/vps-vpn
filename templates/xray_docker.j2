@@ -8,6 +8,8 @@ services:
       - ./caddy/data:/data
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./caddy/templates:/srv
+    pull_policy: always
+
   xray:
     image: ghcr.io/xtls/xray-core:latest
     restart: always
@@ -17,10 +19,16 @@ services:
     network_mode: host
     volumes:
       - ./xray:/etc/xray
+    pull_policy: always
+
   unbound:
     container_name: unbound
-    image: "mvance/unbound:latest"
+    image: madnuttah/unbound:latest
     network_mode: host
     volumes:
-      - ./unbound.conf:/opt/unbound/etc/unbound/unbound.conf
+      - ./unbound.conf:/usr/local/unbound/unbound.conf
     restart: always
+    user: root
+    environment:
+     - DISABLE_SET_PERMS=true
+    pull_policy: always
