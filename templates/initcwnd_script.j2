@@ -1,2 +1,3 @@
 #!/bin/bash
 ip route change default via {{ ansible_facts['default_ipv4']['gateway'] }} dev {{ ansible_facts['default_ipv4']['alias'] }} proto dhcp src {{ ansible_facts['default_ipv4']['address'] }} metric 100 initcwnd 32 initrwnd 64
+ip link set {{ ansible_facts['default_ipv4']['alias'] }} txqueuelen 10000
