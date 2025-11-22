@@ -48,11 +48,20 @@
     {
       "protocol": "freedom",
       "tag": "direct",
-	                          "sockopt": {
+                                  "sockopt": {
     "tcpFastOpen": true,
-    "tcpCongestion": "bbr",
-"tcpMptcp": true,
-"tcpNoDelay": true
+"tcpKeepAliveIdle": 2,
+"tcpKeepAliveInterval": 180,
+"tcpUserTimeout": 2000,
+"customSockopt": [
+  {
+    "system": "linux",
+    "type": "int",
+    "level":"6",
+    "opt": "15",
+    "value": "1"
+  }
+]
   },
       "settings": {
         "domainStrategy": "AsIs"
