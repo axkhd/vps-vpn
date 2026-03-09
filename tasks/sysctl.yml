@@ -1,162 +1,258 @@
-- name: Set FQ
+- name: Set net.core.default_qdisc
   ansible.posix.sysctl:
     name: net.core.default_qdisc
-    value: "fq"
+    value: "fq_codel"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set BBR
+
+- name: Set net.ipv4.tcp_congestion_control
   ansible.posix.sysctl:
     name: net.ipv4.tcp_congestion_control
     value: "bbr"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_fastopen
+
+- name: Set net.ipv4.tcp_fastopen
   ansible.posix.sysctl:
     name: net.ipv4.tcp_fastopen
     value: "3"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_tw_reuse
+
+- name: Set net.ipv4.tcp_tw_reuse
   ansible.posix.sysctl:
     name: net.ipv4.tcp_tw_reuse
     value: "1"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_rmem
+
+- name: Set net.ipv4.tcp_rmem
   ansible.posix.sysctl:
     name: net.ipv4.tcp_rmem
-    value: "8192 262144 16777216"
+    value: "4096 262144 134217728"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_wmem
+
+- name: Set net.ipv4.tcp_wmem
   ansible.posix.sysctl:
     name: net.ipv4.tcp_wmem
-    value: "4096 16384 16777216"
+    value: "4096 262144 134217728"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set rmem_default
+
+- name: Set net.core.rmem_default
   ansible.posix.sysctl:
     name: net.core.rmem_default
-    value: "16777216"
+    value: "44040192"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set wmem_default
+
+- name: Set net.core.wmem_default
   ansible.posix.sysctl:
     name: net.core.wmem_default
-    value: "16777216"
+    value: "44040192"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set rmem_max
+
+- name: Set net.core.rmem_max
   ansible.posix.sysctl:
     name: net.core.rmem_max
-    value: "16777216"
+    value: "134217728"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set wmem_max
+
+- name: Set net.core.wmem_max
   ansible.posix.sysctl:
     name: net.core.wmem_max
-    value: "16777216"
+    value: "134217728"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set udp_rmem_min
+
+- name: Set net.ipv4.udp_rmem_min
   ansible.posix.sysctl:
     name: net.ipv4.udp_rmem_min
-    value: "16384"
+    value: "262144"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set udp_wmem_min
+
+- name: Set net.ipv4.udp_wmem_min
   ansible.posix.sysctl:
     name: net.ipv4.udp_wmem_min
-    value: "16384"
+    value: "262144"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_adv_win_scale
+
+- name: Set net.ipv4.tcp_adv_win_scale
   ansible.posix.sysctl:
     name: net.ipv4.tcp_adv_win_scale
-    value: "-2"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_low_latency
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_low_latency
     value: "1"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_slow_start_after_idle
+
+- name: Set net.ipv4.tcp_slow_start_after_idle
   ansible.posix.sysctl:
     name: net.ipv4.tcp_slow_start_after_idle
     value: "0"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_reordering
+
+- name: Set net.ipv4.tcp_reordering
   ansible.posix.sysctl:
     name: net.ipv4.tcp_reordering
-    value: "3"
+    value: "15"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_window_scaling
+
+- name: Set net.ipv4.tcp_window_scaling
   ansible.posix.sysctl:
     name: net.ipv4.tcp_window_scaling
     value: "1"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_notsent_lowat
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_notsent_lowat
-    value: "16384"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
-- name: Set tcp_timestamps
+
+- name: Set net.ipv4.tcp_timestamps
   ansible.posix.sysctl:
     name: net.ipv4.tcp_timestamps
     value: "1"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set ip_forward
+
+- name: Set net.ipv4.ip_forward
   ansible.posix.sysctl:
     name: net.ipv4.ip_forward
     value: "1"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_mtu_probing
+
+- name: Set net.ipv4.tcp_mtu_probing
   ansible.posix.sysctl:
     name: net.ipv4.tcp_mtu_probing
-    value: "2"
+    value: "1"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set tcp_base_mss
-  ansible.posix.sysctl:
-    name: net.ipv4.tcp_base_mss
-    value: "1380"
-    sysctl_file: /etc/sysctl.d/99-custom.conf
-    state: present
+
 - name: Set vm.swappiness
   ansible.posix.sysctl:
     name: vm.swappiness
     value: "0"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Set file-max
+
+- name: Set fs.file-max
   ansible.posix.sysctl:
     name: fs.file-max
-    value: "100000"
+    value: "500000"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name:  Disable IPv6
+
+- name: Disable IPv6 (all)
   ansible.posix.sysctl:
     name: net.ipv6.conf.all.disable_ipv6
     value: "1"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Disable default IPv6
+
+- name: Disable IPv6 (default)
   ansible.posix.sysctl:
     name: net.ipv6.conf.default.disable_ipv6
     value: "1"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
-- name: Disable loopback IPv6
+
+- name: Disable IPv6 (loopback)
   ansible.posix.sysctl:
     name: net.ipv6.conf.lo.disable_ipv6
     value: "1"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.ipv4.tcp_fin_timeout
+  ansible.posix.sysctl:
+    name: net.ipv4.tcp_fin_timeout
+    value: "15"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.core.netdev_max_backlog
+  ansible.posix.sysctl:
+    name: net.core.netdev_max_backlog
+    value: "250000"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.core.somaxconn
+  ansible.posix.sysctl:
+    name: net.core.somaxconn
+    value: "65535"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.ipv4.route.min_pmtu
+  ansible.posix.sysctl:
+    name: net.ipv4.route.min_pmtu
+    value: "1200"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.core.optmem_max
+  ansible.posix.sysctl:
+    name: net.core.optmem_max
+    value: "25165824"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.ipv4.tcp_ecn
+  ansible.posix.sysctl:
+    name: net.ipv4.tcp_ecn
+    value: "1"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.core.netdev_budget
+  ansible.posix.sysctl:
+    name: net.core.netdev_budget
+    value: "600"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.core.netdev_budget_usecs
+  ansible.posix.sysctl:
+    name: net.core.netdev_budget_usecs
+    value: "8000"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.ipv4.tcp_notsent_lowat
+  ansible.posix.sysctl:
+    name: net.ipv4.tcp_notsent_lowat
+    value: "2097152"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.ipv4.tcp_autocorking
+  ansible.posix.sysctl:
+    name: net.ipv4.tcp_autocorking
+    value: "1"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.ipv4.tcp_max_syn_backlog
+  ansible.posix.sysctl:
+    name: net.ipv4.tcp_max_syn_backlog
+    value: "65535"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.ipv4.tcp_syn_retries
+  ansible.posix.sysctl:
+    name: net.ipv4.tcp_syn_retries
+    value: "3"
+    sysctl_file: /etc/sysctl.d/99-custom.conf
+    state: present
+
+- name: Set net.ipv4.tcp_synack_retries
+  ansible.posix.sysctl:
+    name: net.ipv4.tcp_synack_retries
+    value: "3"
     sysctl_file: /etc/sysctl.d/99-custom.conf
     state: present
