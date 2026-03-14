@@ -70,6 +70,8 @@
   include_tasks: initcwnd_initrwnd_tuning.yml
 - name: RFS tuning
   include_tasks: rfs_tune.yml
+- name: Install xanmod kernel
+  include_tasks: install_xanmod_v3.yml
 - name: Security block
   block:
     - name: Edit SSHD config
