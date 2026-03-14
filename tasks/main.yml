@@ -30,6 +30,14 @@
       shell:
         cmd: docker run --rm ghcr.io/xtls/xray-core uuid
       register: xray_uuid
+    - name: Generate x25519 PIK 
+      shell:
+        cmd: docker run --rm ghcr.io/xtls/xray-core mlkem768 | head -n1 | cut -d' ' -f 2
+      register: x25519_mlkemk_seed
+    - name: Generate x25519 PBK 
+      shell:
+        cmd: docker run --rm ghcr.io/xtls/xray-core mlkem768 -i {{ x25519_mlkemk_seed.stdout }} | head -n2 | tail -1 | cut -d' ' -f 2
+      register: x25519_mlkemk_client
 - name: Install marzban
   include_tasks: install_marzban.yml
   when: setup_variant == "marzban"
