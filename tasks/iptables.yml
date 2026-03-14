@@ -48,6 +48,16 @@
       ansible.builtin.iptables:
         chain: INPUT
         policy: DROP
+     - name: Ensure mangle table MSS clamp rule
+       become: yes
+       ansible.builtin.shell: |
+        iptables -t mangle -C POSTROUTING -p tcp \
+          --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu \
+          2>/dev/null || \
+        iptables -t mangle -A POSTROUTING -p tcp \
+          --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
+      args:
+          warn: false
     - name: Save iptables rules
       shell:
         cmd: netfilter-persistent save
