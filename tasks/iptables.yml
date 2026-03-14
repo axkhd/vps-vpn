@@ -23,20 +23,14 @@
         chain: INPUT
         protocol: icmp
         jump: ACCEPT
-    - name: Allow 80, 443 connections
+    - name: Allow 80, 443, 8443 connections
       ansible.builtin.iptables:
         chain: INPUT
         protocol: tcp
         destination_ports:
           - "80"
           - "443"
-        jump: ACCEPT
-    - name: Allow udp 443 connections
-      ansible.builtin.iptables:
-        chain: INPUT
-        protocol: udp
-        destination_ports:
-          - "443"
+          - "8443"
         jump: ACCEPT
     - name: Allow loopback in
       shell:
@@ -44,11 +38,7 @@
     - name: Allow loopback out
       shell:
         cmd: iptables -A OUTPUT -o lo -j ACCEPT
-    - name: INPUT DROP
-      ansible.builtin.iptables:
-        chain: INPUT
-        policy: DROP
-     - name: Ensure mangle table MSS clamp rule
+         - name: Ensure mangle table MSS clamp rule
        become: yes
        ansible.builtin.shell: |
         iptables -t mangle -C POSTROUTING -p tcp \
@@ -58,6 +48,10 @@
           --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
       args:
           warn: false
+    - name: INPUT DROP
+      ansible.builtin.iptables:
+        chain: INPUT
+        policy: DROP
     - name: Save iptables rules
       shell:
         cmd: netfilter-persistent save
