@@ -1,0 +1,50 @@
+---
+# Install XanMod Kernel x86-64-v3 on Ubuntu
+
+- name: Install required packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - gnupg
+      - curl
+      - ca-certificates
+    state: present
+    update_cache: yes
+
+- name: Add XanMod GPG key
+  become: true
+  ansible.builtin.shell: |
+    curl -fsSL https://dl.xanmod.org/gpg.key | gpg --dearmor -o /usr/share/keyrings/xanmod.gpg
+  args:
+    creates: /usr/share/keyrings/xanmod.gpg
+
+- name: Add XanMod repository
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/apt/sources.list.d/xanmod-release.list
+    mode: '0644'
+    content: |
+      deb [signed-by=/usr/share/keyrings/xanmod.gpg] http://deb.xanmod.org releases main
+
+- name: Update apt cache
+  become: true
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install XanMod kernel (x86-64-v3)
+  become: true
+  ansible.builtin.apt:
+    name: linux-xanmod-x64v3
+    state: present
+
+- name: Ensure GRUB boots latest kernel
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_DEFAULT='
+    line: 'GRUB_DEFAULT=0'
+  notify: Update grub config
+
+- name: Update grub
+  become: true
+  ansible.builtin.command: update-grub
