@@ -1,0 +1,105 @@
+---
+# Install irqbalance + persistent RPS/RFS + ethtool tuning (2 CPU VPS)
+
+############################################################
+# Install required packages
+############################################################
+
+- name: Install irqbalance and ethtool
+  become: yes
+  ansible.builtin.package:
+    name:
+      - irqbalance
+      - ethtool
+    state: present
+
+############################################################
+# irqbalance override
+############################################################
+
+- name: Create systemd override directory for irqbalance
+  become: yes
+  ansible.builtin.file:
+    path: /etc/systemd/system/irqbalance.service.d
+    state: directory
+    mode: '0755'
+
+- name: Configure ProtectKernelTunables for irqbalance
+  become: yes
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/irqbalance.service.d/override.conf
+    mode: '0644'
+    content: |
+      [Service]
+      ProtectKernelTunables=no
+
+- name: Reload systemd
+  become: yes
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Enable and start irqbalance
+  become: yes
+  ansible.builtin.systemd:
+    name: irqbalance
+    enabled: true
+    state: started
+
+############################################################
+# Persistent tuning service (RPS/RFS + ethtool)
+############################################################
+
+- name: Create tuning apply script
+  become: yes
+  ansible.builtin.copy:
+    dest: /usr/local/sbin/apply-net-tuning.sh
+    mode: '0755'
+    content: |
+      #!/bin/bash
+      IFACE=$(ip route | awk '/default/ {print $5; exit}')
+      RX_QUEUES=$(ls /sys/class/net/$IFACE/queues | grep '^rx-' | wc -l)
+
+      CPU_MASK=3
+      FLOW_ENTRIES=32768
+
+      # ---- ethtool ring buffers ----
+      ethtool -G $IFACE rx 4096 tx 4096 2>/dev/null
+
+      # ---- RPS/RFS ----
+      echo $FLOW_ENTRIES > /proc/sys/net/core/rps_sock_flow_entries
+
+      for ((i=0;i<$RX_QUEUES;i++)); do
+          echo $CPU_MASK > /sys/class/net/$IFACE/queues/rx-$i/rps_cpus
+          echo $((FLOW_ENTRIES / RX_QUEUES)) > /sys/class/net/$IFACE/queues/rx-$i/rps_flow_cnt
+      done
+
+- name: Create systemd service for persistent tuning
+  become: yes
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/net-tuning.service
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Apply Network Performance Tuning
+      After=network-online.target
+      Wants=network-online.target
+
+      [Service]
+      Type=oneshot
+      ExecStart=/usr/local/sbin/apply-net-tuning.sh
+      RemainAfterExit=true
+
+      [Install]
+      WantedBy=multi-user.target
+
+- name: Reload systemd
+  become: yes
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Enable and start tuning service
+  become: yes
+  ansible.builtin.systemd:
+    name: net-tuning.service
+    enabled: true
+    state: started
