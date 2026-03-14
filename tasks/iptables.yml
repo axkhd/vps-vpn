@@ -38,7 +38,7 @@
     - name: Allow loopback out
       shell:
         cmd: iptables -A OUTPUT -o lo -j ACCEPT
-         - name: Ensure mangle table MSS clamp rule
+    - name: Ensure mangle table MSS clamp rule
        become: yes
        ansible.builtin.shell: |
         iptables -t mangle -C POSTROUTING -p tcp \
