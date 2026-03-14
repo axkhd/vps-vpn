@@ -1,29 +1,28 @@
 {
   "log": {
-    "loglevel": "debug",
-    "dnsLog": true
+    "loglevel": "none"
   },
   "inbounds": [
     {
       "tag": "VLESS TCP VISION REALITY",
       "listen": "0.0.0.0",
-      "port": 443,
+      "port": 8443,
       "protocol": "vless",
       "settings": {
         "clients": [
-        {
-          "id": "{{ xray_uuid.stdout}}",
-		  "level": 0,
-          "email": "default",
-          "flow": "xtls-rprx-vision"
-        }],
-        "decryption": "none"
+          {
+            "id": "{{ xray_uuid.stdout}}",
+            "email": "default",
+            "flow": "xtls-rprx-vision"
+          }
+        ],
+        "decryption": "{{ x25519_mlkemk.stdout }}"
       },
       "streamSettings": {
-        "network": "tcp",
+        "network": "raw",
         "security": "reality",
         "realitySettings": {
-          "xver": 1,
+          "xver": 2,
           "dest": "127.0.0.1:4123",
           "serverNames": [
             "{{ xray_domain }}"
@@ -32,15 +31,21 @@
           "shortIds": [
             "{{ short_id.stdout }}"
           ]
+        },
+        "rawSettings": {
+          "handshakeTimeout": 10,
+          "maxUdpFrameSize": 1350,
+          "initialSendWindow": 2097152,
+          "initialReceiveWindow": 2097152,
+          "maxInflight": 128,
+          "ackInterval": 10
         }
       },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ],
-        "routeOnly": true
+      "sockopt": {
+        "tcpFastOpen": true,
+        "tcpKeepAliveIdle": 15,
+        "tcpKeepAliveInterval": 60,
+        "tcpUserTimeout": 8000
       }
     }
   ],
@@ -48,21 +53,20 @@
     {
       "protocol": "freedom",
       "tag": "direct",
-                                  "sockopt": {
-    "tcpFastOpen": true,
-"tcpKeepAliveIdle": 2,
-"tcpKeepAliveInterval": 180,
-"tcpUserTimeout": 2000,
-"customSockopt": [
-  {
-    "system": "linux",
-    "type": "int",
-    "level":"6",
-    "opt": "15",
-    "value": "1"
-  }
-]
-  },
+      "sockopt": {
+        "tcpFastOpen": true,
+        "tcpKeepAliveIdle": 15,
+        "tcpKeepAliveInterval": 60,
+        "tcpUserTimeout": 8000
+      },
+      "rawSettings": {
+        "handshakeTimeout": 5,
+        "maxUdpFrameSize": 1350,
+        "initialSendWindow": 2097152,
+        "initialReceiveWindow": 2097152,
+        "maxInflight": 128,
+        "ackInterval": 2
+      },
       "settings": {
         "domainStrategy": "AsIs"
       }
@@ -83,24 +87,18 @@
   },
   "dns": {
     "servers": [
-    {"address":"localhost"}
+      {
+        "address": "localhost"
+      }
     ],
     "queryStrategy": "UseIPv4",
     "disableFallback": false,
     "tag": "dns-aux"
   },
-    "policy": {
-    "levels": {
-      "0": {
-        "handshake": 3,
-        "connIdle": 20,
-        "uplinkOnly": 1,
-        "downlinkOnly": 1,
-        "statsUserUplink": false,
-        "statsUserDownlink": false,
-        "statsUserOnline": false,
-        "bufferSize": 16384
-      }
+  "policy": {
+    "system": {
+      "statsInboundUplink": true,
+      "statsInboundDownlink": true
     }
-        }
+  }
 }
