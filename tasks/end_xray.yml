@@ -1,6 +1,9 @@
 - name: Print clipboard string
   debug:
-    msg: "vless://{{ xray_uuid.stdout }}@{{ xray_domain }}:443?type=tcp&security=reality&pbk={{ x25519_pbk.stdout }}&fp=chrome&sni={{ xray_domain }}&sid={{ short_id.stdout }}&spx=%2F&flow=xtls-rprx-vision"
+    msg: "vless://{{ xray_uuid.stdout }}@{{ xray_domain }}:8443?type=tcp&security=reality&pbk={{ x25519_pbk.stdout }}&fp=chrome&sni={{ xray_domain }}&sid={{ short_id.stdout }}&spx=%2F&flow=xtls-rprx-vision"
+- name: Print clipboard string with encryption
+  debug:
+    msg: "vless://{{ xray_uuid.stdout }}@{{ xray_domain }}:443?encryption={{ x25519_mlkemk_client.stdout }}&type=tcp&security=reality&pbk={{ x25519_pbk.stdout }}&fp=chrome&sni={{ xray_domain }}&sid={{ short_id.stdout }}&spx=%2F&flow=xtls-rprx-vision"
 - name: XRay outbound config 
   debug:
     msg: |
