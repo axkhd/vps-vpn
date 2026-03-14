@@ -9,7 +9,8 @@ services:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./caddy/templates:/srv
     pull_policy: always
-
+    cpu_shares: 262144
+    
   xray:
     image: ghcr.io/xtls/xray-core:latest
     restart: always
@@ -20,7 +21,8 @@ services:
     volumes:
       - ./xray:/etc/xray
     pull_policy: always
-
+    cpu_shares: 262144
+    
   unbound:
     container_name: unbound
     image: madnuttah/unbound:latest
@@ -32,3 +34,17 @@ services:
     environment:
      - DISABLE_SET_PERMS=true
     pull_policy: always
+    cpu_shares: 262144
+    
+    xray2instance:
+    image: ghcr.io/xtls/xray-core:latest
+    restart: always
+    container_name: xray2instance
+    user: root
+    network_mode: host
+    volumes:
+      - ./xray2:/etc/xray
+    pull_policy: always
+    cpu_shares: 262144
+    cap_add:
+      - SYS_NICE
