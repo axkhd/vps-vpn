@@ -30,14 +30,16 @@
       shell:
         cmd: docker run --rm ghcr.io/xtls/xray-core uuid
       register: xray_uuid
-    - name: Generate mlkem768 seed 
-      shell:
-        cmd: docker run --rm ghcr.io/xtls/xray-core mlkem768 | head -n1 | cut -d' ' -f 2
-      register: x25519_mlkemk_seed
-    - name: Generate mlkem768 client
-      shell:
-        cmd: docker run --rm ghcr.io/xtls/xray-core mlkem768 -i {{ x25519_mlkemk_seed.stdout }} | head -n2 | tail -1 | cut -d' ' -f 2
-      register: x25519_mlkemk_client
+    - name: Run xray vlessenc
+      become: true
+      ansible.builtin.command:
+        cmd: docker run --rm ghcr.io/xtls/xray-core vlessenc
+      register: vless_raw
+      changed_when: false
+    - name: Extract keys
+      ansible.builtin.set_fact:
+        xray_dec: "{{ vless_raw.stdout_lines[3].split(' ')[1] }}"
+        xray_enc: "{{ vless_raw.stdout_lines[4].split(' ')[1] }}"
 - name: Install marzban
   include_tasks: install_marzban.yml
   when: setup_variant == "marzban"
