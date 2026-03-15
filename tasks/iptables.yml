@@ -47,8 +47,6 @@
           2>/dev/null || \
         iptables -t mangle -A POSTROUTING -p tcp \
           --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
-      args:
-        warn: false
     - name: INPUT DROP
       ansible.builtin.iptables:
         chain: INPUT
