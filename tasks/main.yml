@@ -76,12 +76,12 @@
   include_tasks: install_xanmod_v3.yml
 - name: Security block
   block:
-    - name: Edit SSHD config
-      include_tasks: ssh.yml
     - name: Edit iptables
       include_tasks: iptables.yml
     - name: Add user
       include_tasks: user.yml
+    - name: Edit SSHD config
+      include_tasks: ssh.yml
     - name: No root and passwd login
       include_tasks: norootpasswdlogin.yml
   when: configure_security|default(false)|bool == true
