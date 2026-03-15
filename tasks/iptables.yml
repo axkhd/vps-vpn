@@ -1,3 +1,4 @@
+---
 - name: IPTables rules
   block:
     - name: Install netfilter-persistent
@@ -18,7 +19,7 @@
         ctstate: NEW
         syn: match
         jump: ACCEPT
-    - name: Allow ICMP 
+    - name: Allow ICMP
       ansible.builtin.iptables:
         chain: INPUT
         protocol: icmp
@@ -39,15 +40,15 @@
       shell:
         cmd: iptables -A OUTPUT -o lo -j ACCEPT
     - name: Ensure mangle table MSS clamp rule
-       become: yes
-       ansible.builtin.shell: |
+      become: yes
+      ansible.builtin.shell: |
         iptables -t mangle -C POSTROUTING -p tcp \
           --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu \
           2>/dev/null || \
         iptables -t mangle -A POSTROUTING -p tcp \
           --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
       args:
-          warn: false
+        warn: false
     - name: INPUT DROP
       ansible.builtin.iptables:
         chain: INPUT
