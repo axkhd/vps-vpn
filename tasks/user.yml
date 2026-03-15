@@ -7,12 +7,13 @@
     append: yes
     update_password: on_create
   register: "xray_user"
-- name: Make sudo with nopasswd
-  community.general.sudoers:
-    name: make_sudo_nopasswd
-    user: "{{ user_to_create }}"
-    state: present
-    commands: ALL
+- name: Allow sudo without password
+  become: true
+  ansible.builtin.copy:
+    dest: "/etc/sudoers.d/{{ user_to_create }}"
+    content: "{{ user_to_create }} ALL=(ALL) NOPASSWD:ALL"
+    mode: '0440'
+    validate: '/usr/sbin/visudo -cf %s'
 - name: Add ssh_pbk to user
   ansible.posix.authorized_key:
     user: "{{ user_to_create }}"
