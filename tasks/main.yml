@@ -38,8 +38,8 @@
       changed_when: false
     - name: Extract keys
       ansible.builtin.set_fact:
-        xray_dec: "{{ vless_raw.stdout_lines[3].split(' ')[1] }}"
-        xray_enc: "{{ vless_raw.stdout_lines[4].split(' ')[1] }}"
+        xray_dec: "{{ vless_raw.stdout_lines[3].split(' ')[1] | trim('\"') }}"
+        xray_enc: "{{ vless_raw.stdout_lines[4].split(' ')[1] | trim('\"') }}"
 - name: Install marzban
   include_tasks: install_marzban.yml
   when: setup_variant == "marzban"
